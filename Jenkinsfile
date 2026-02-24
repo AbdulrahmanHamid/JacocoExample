@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         maven 'Maven'
-        dockerTool 'Docker'
+        jdk 'jdk21'
     }
     parameters {
         string(
