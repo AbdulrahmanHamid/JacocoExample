@@ -14,6 +14,10 @@ pipeline {
         )
     }
 
+    environment {
+        APP_NAME = "week6demo-app"
+    }
+
     stages {
 
         stage('Checkout') {
@@ -40,9 +44,17 @@ pipeline {
             }
         }
 
-        stage('JaCoCo Report') {
+        stage('JaCoCo Report & Publish') {
             steps {
                 bat 'mvn jacoco:report'
+            }
+            post {
+                always {
+                    jacoco execPattern: 'target/jacoco.exec',
+                           classPattern: 'target/classes',
+                           sourcePattern: 'src/main/java',
+                           inclusionPattern: '**/*.class'
+                }
             }
         }
 
