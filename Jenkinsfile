@@ -14,11 +14,6 @@ pipeline {
         )
     }
 
-    environment {
-        APP_NAME = "week6demo-app"
-        DOCKER_IMAGE = "myrepo/week6demo-app:latest"
-    }
-
     stages {
 
         stage('Checkout') {
@@ -55,13 +50,6 @@ pipeline {
             steps {
                 bat 'mvn package -DskipTests'
                 archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-            }
-        }
-
-        stage('Build Docker Image') {
-            when { branch 'master' }
-            steps {
-                bat "docker build -t %DOCKER_IMAGE% ."
             }
         }
 
